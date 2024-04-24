@@ -47,6 +47,8 @@ import * as ImageHotspotItem from '~/sections/image-hotspots/items';
 import * as ProductList from '~/sections/product-list';
 import * as ContactForm from '~/sections/contact-form';
 import * as UserProfiles from '~/sections/user-profiles';
+import * as AnnounceBar from '~/sections/announce-bar';
+import * as AnnounceBarItem from '~/sections/announce-bar/items';
 
 export let components: HydrogenComponent[] = [
   ...commonComponents,
@@ -99,4 +101,6 @@ export let components: HydrogenComponent[] = [
   SlideShowItem,
   ProductList,
   ContactForm,
+  AnnounceBar,
+  AnnounceBarItem,
 ];
