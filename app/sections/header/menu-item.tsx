@@ -5,19 +5,19 @@ import type {
 } from '@weaverse/hydrogen';
 import {forwardRef} from 'react';
 import clsx from 'clsx';
-type AnnounceBarData = {
+type MenuItemData = {
   bgColor: string;
   announceHeight: number;
   enableAnimation: boolean;
   // More type definitions...
 };
 
-type AnnounceBarProps = HydrogenComponentProps<
+type MenuItemProps = HydrogenComponentProps<
   Awaited<ReturnType<typeof loader>>
 > &
-  AnnounceBarData;
+  MenuItemData;
 
-let AnnounceBar = forwardRef<HTMLElement, AnnounceBarProps>((props, ref) => {
+let MenuItem = forwardRef<HTMLElement, MenuItemProps>((props, ref) => {
   let {bgColor, announceHeight, enableAnimation, children, ...rest} = props;
   // More component logic...
 
@@ -25,7 +25,7 @@ let AnnounceBar = forwardRef<HTMLElement, AnnounceBarProps>((props, ref) => {
     <section ref={ref} {...rest}>
       <div
         style={{backgroundColor: bgColor, height: announceHeight}}
-        className="py-2 px-4 overflow-x-hidden relative flex justify-stretch items-center"
+        className="py-2 px-4 overflow-x-hidden relative flex justify-center items-center"
       >
         <div
           className={clsx(
@@ -45,7 +45,7 @@ let AnnounceBar = forwardRef<HTMLElement, AnnounceBarProps>((props, ref) => {
   );
 });
 
-export let loader = async (args: ComponentLoaderArgs<AnnounceBarData>) => {
+export let loader = async (args: ComponentLoaderArgs<MenuItemData>) => {
   // Data fetching logic, the code will be run on the server-side ...
 };
 
@@ -94,4 +94,4 @@ export let schema: HydrogenComponentSchema = {
   },
 };
 
-export default AnnounceBar;
+export default MenuItem;

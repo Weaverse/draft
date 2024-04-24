@@ -49,6 +49,8 @@ import * as ContactForm from '~/sections/contact-form';
 import * as UserProfiles from '~/sections/user-profiles';
 import * as AnnounceBar from '~/sections/announce-bar';
 import * as AnnounceBarItem from '~/sections/announce-bar/items';
+import * as Header from '~/sections/header';
+import * as HeaderItem from '~/sections/header/menu-item';
 
 export let components: HydrogenComponent[] = [
   ...commonComponents,
@@ -103,4 +105,6 @@ export let components: HydrogenComponent[] = [
   ContactForm,
   AnnounceBar,
   AnnounceBarItem,
+  Header,
+  HeaderItem,
 ];
