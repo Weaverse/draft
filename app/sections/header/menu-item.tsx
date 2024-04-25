@@ -4,11 +4,12 @@ import type {
   HydrogenComponentSchema,
 } from '@weaverse/hydrogen';
 import {forwardRef} from 'react';
-import clsx from 'clsx';
+import {Link} from '@remix-run/react';
+
 type MenuItemData = {
-  bgColor: string;
-  announceHeight: number;
-  enableAnimation: boolean;
+  menuColor: string;
+  menuLink: string;
+  menuText: string;
   // More type definitions...
 };
 
@@ -18,29 +19,18 @@ type MenuItemProps = HydrogenComponentProps<
   MenuItemData;
 
 let MenuItem = forwardRef<HTMLElement, MenuItemProps>((props, ref) => {
-  let {bgColor, announceHeight, enableAnimation, children, ...rest} = props;
+  let {menuColor, menuLink, menuText, children, ...rest} = props;
   // More component logic...
 
   return (
     <section ref={ref} {...rest}>
-      <div
-        style={{backgroundColor: bgColor, height: announceHeight}}
-        className="py-2 px-4 overflow-x-hidden relative flex justify-center items-center"
+      <Link
+        to={menuLink}
+        style={{color: menuColor}}
+        className="hover:text-gray-300 hover:underline"
       >
-        <div
-          className={clsx(
-            'flex justify-around w-full',
-            enableAnimation ? ' animate-marquee ' : '',
-          )}
-        >
-          {children?.map((child, index) => <div key={index}>{child}</div>)}
-        </div>
-        {enableAnimation && (
-          <div className=" absolute animate-marquee2 flex justify-around w-full ">
-            {children?.map((child, index) => <div key={index}>{child}</div>)}
-          </div>
-        )}
-      </div>
+        {menuText}
+      </Link>
     </section>
   );
 });
@@ -50,37 +40,28 @@ export let loader = async (args: ComponentLoaderArgs<MenuItemData>) => {
 };
 
 export let schema: HydrogenComponentSchema = {
-  type: 'announce-bar-type',
-  title: 'Announce Bar',
+  type: 'menu-item-type',
+  title: 'Menu Link',
   // More schema definitions...
-  childTypes: ['announce-bar-item-type'],
   inspector: [
     {
       group: 'General',
       inputs: [
         {
-          type: 'range',
-          label: 'Height',
-          name: 'announceHeight',
-          defaultValue: 40,
-          configs: {
-            min: 40,
-            max: 300,
-            step: 1,
-            unit: 'px',
-          },
+          type: 'text',
+          label: 'Menu Text',
+          name: 'menuText',
+        },
+        {
+          type: 'url',
+          label: 'Menu Link',
+          name: 'menuLink',
         },
         {
           type: 'color',
-          label: 'Background color',
-          name: 'bgColor',
+          label: 'Menu Color',
+          name: 'menuColor',
           defaultValue: '#F08D27',
-        },
-        {
-          type: 'switch',
-          label: 'Enable Animation',
-          name: 'enableAnimation',
-          defaultValue: false,
         },
       ],
     },
