@@ -14,7 +14,9 @@ type HeaderData = {
   showCartIcon: boolean;
   showSearchIcon: boolean;
   logoImage: WeaverseImage;
-  // More type definitions...
+  logoText: string;
+  showLogoImage: boolean;
+  logoColor: string;
 };
 
 type HeaderProps = HydrogenComponentProps<Awaited<ReturnType<typeof loader>>> &
@@ -27,6 +29,9 @@ let Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     showCartIcon,
     logoImage,
     showSearchIcon,
+    showLogoImage,
+    logoColor,
+    logoText,
     children,
     ...rest
   } = props;
@@ -75,18 +80,27 @@ let Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
           <nav className=" w-1/3 px-2 hidden md:flex space-x-4">
             {children?.map((child) => <> {child}</>)}
           </nav>
-          {/* Logo */}
-          <div className="w-1/3 px-2 py-2 flex justify-center items-center">
-            <Link
-              to="#"
-              style={{color: '#F76526'}}
-              className="font-bold text-lg"
-            >
-              Travis
-              <Image data={logoImage} sizes={`(min-width: 45em) 50vw, 100vw`} />
-            </Link>
-          </div>
-          {/* Ô tìm kiếm */}
+          {!showLogoImage ? (
+            <div className="w-1/3 px-2 py-2 flex justify-center items-center">
+              <Link
+                to="/"
+                style={{color: logoColor}}
+                className="font-bold text-lg"
+              >
+                {logoText}
+              </Link>
+            </div>
+          ) : (
+            <div className="w-1/3 px-2 py-2 flex justify-center items-center">
+              <Link to="/">
+                <Image
+                  data={logoImage}
+                  sizes={`(min-width: 45em) 50vw, 100vw`}
+                />
+              </Link>
+            </div>
+          )}
+
           {/* <div className="flex-1 hidden md:block mx-4 md:mx-0">
             <input
               type="text"
@@ -201,15 +215,38 @@ export let schema: HydrogenComponentSchema = {
         },
 
         {
+          type: 'switch',
+          label: 'Show Search Icon',
+          name: 'showSearchIcon',
+          defaultValue: true,
+        },
+      ],
+    },
+    {
+      group: 'Logo',
+      inputs: [
+        {
+          type: 'text',
+          label: 'Logo Text',
+          name: 'logoText',
+          defaultValue: 'Logo Text',
+        },
+        {
+          type: 'color',
+          label: 'Logo Color',
+          name: 'logoColor',
+          defaultValue: '#F76526',
+        },
+        {
+          type: 'switch',
+          label: 'Show Logo Image',
+          name: 'showLogoImage',
+          defaultValue: false,
+        },
+        {
           type: 'image',
           name: 'logoImage',
           label: 'Logo Image',
-          defaultValue: {
-            url: 'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/linkedin-sales-solutions-pAtA8xe_iVM-unsplash.jpg?v=1697429747',
-            altText: 'Logo',
-            width: 100,
-            height: 100,
-          },
         },
       ],
     },
