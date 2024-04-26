@@ -57,37 +57,80 @@ export let schema: HydrogenComponentSchema = {
   toolbar: ['general-settings', ['duplicate', 'delete']],
   inspector: [
     {
-      group: 'Image',
+      group: 'Image with text',
       inputs: [
         {
           type: 'toggle-group',
-          label: 'Image alignment',
-          name: 'imageAlignment',
+          label: 'Image position',
+          name: 'imagePosition',
           configs: {
             options: [
-              {label: 'Left', value: 'left', icon: 'AlignLeft'},
-              {label: 'Right', value: 'right', icon: 'AlignRight'},
+              {label: 'Left', value: 'left'},
+              {label: 'Right', value: 'right'},
             ],
           },
           defaultValue: 'left',
         },
         {
-          type: 'range',
-          name: 'sectionHeight',
-          label: 'Section height',
-          defaultValue: 450,
+          type: 'toggle-group',
+          label: 'Text Alignment',
+          name: 'textAlignment',
           configs: {
-            min: 400,
-            max: 700,
-            step: 10,
-            unit: 'px',
+            options: [
+              {label: 'Left', value: 'left'},
+              {label: 'Center', value: 'center'},
+              {label: 'Right', value: 'right'},
+            ],
           },
+          defaultValue: 'center',
         },
         {
           type: 'color',
           name: 'backgroundColor',
           label: 'Background color',
           defaultValue: '#f4f4f4',
+        },
+        {
+          type: 'color',
+          name: 'backgroundText',
+          label: 'Background Text',
+          defaultValue: '#f4f4f4',
+        },
+        {
+          type: 'range',
+          name: 'maxWidth',
+          label: 'Max Width',
+          defaultValue: 800,
+          configs: {
+            min: 400,
+            max: 1800,
+            step: 10,
+            unit: 'px',
+          },
+        },
+        {
+          type: 'range',
+          name: 'topPadding',
+          label: 'Top padding',
+          defaultValue: 800,
+          configs: {
+            min: 400,
+            max: 1800,
+            step: 10,
+            unit: 'px',
+          },
+        },
+        {
+          type: 'range',
+          name: 'bottomPadding',
+          label: 'Bottom padding',
+          defaultValue: 800,
+          configs: {
+            min: 400,
+            max: 1800,
+            step: 10,
+            unit: 'px',
+          },
         },
       ],
     },
