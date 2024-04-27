@@ -55,9 +55,9 @@ export function Layout({children, layout}: LayoutProps) {
             Skip to content
           </a>
         </div>
-        {headerMenu && layout?.shop.name && (
+        {/* {headerMenu && layout?.shop.name && (
           <Header title={layout.shop.name} menu={headerMenu} />
-        )}
+        )} */}
         <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>

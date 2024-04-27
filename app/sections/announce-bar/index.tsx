@@ -25,7 +25,7 @@ let AnnounceBar = forwardRef<HTMLElement, AnnounceBarProps>((props, ref) => {
     <section ref={ref} {...rest}>
       <div
         style={{backgroundColor: bgColor, height: announceHeight}}
-        className="py-2 px-4 overflow-x-hidden relative flex justify-center items-center"
+        className="py-2 px-4 overflow-x-hidden relative flex justify-stretch items-center"
       >
         <div
           className={clsx(
