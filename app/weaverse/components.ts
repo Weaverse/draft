@@ -51,6 +51,10 @@ import * as AnnounceBar from '~/sections/announce-bar';
 import * as AnnounceBarItem from '~/sections/announce-bar/items';
 import * as Header from '~/sections/header';
 import * as HeaderItem from '~/sections/header/menu-item';
+import * as ImgWithTextButton from '~/sections/image-with-text/Button';
+import * as ImageWithTextDescription from '~/sections/image-with-text/Description';
+import * as ImageWithTextHeading from '~/sections/image-with-text/Heading';
+import * as ImageWithTextSubheading from '~/sections/image-with-text/SubHeading';
 
 export let components: HydrogenComponent[] = [
   ...commonComponents,
@@ -107,4 +111,8 @@ export let components: HydrogenComponent[] = [
   AnnounceBarItem,
   Header,
   HeaderItem,
+  ImgWithTextButton,
+  ImageWithTextDescription,
+  ImageWithTextHeading,
+  ImageWithTextSubheading,
 ];

@@ -10,7 +10,10 @@ type AlignImage = 'left' | 'right';
 interface ImageWithTextProps extends HydrogenComponentProps {
   sectionHeight: number;
   backgroundColor: string;
-  imageAlignment?: AlignImage;
+  imagePosition?: AlignImage;
+  maxWidth: number;
+  paddingTop: number;
+  paddingBottom: number;
 }
 
 let AlignImageClasses: Record<AlignImage, string> = {
@@ -20,11 +23,22 @@ let AlignImageClasses: Record<AlignImage, string> = {
 
 let ImageWithText = forwardRef<HTMLElement, ImageWithTextProps>(
   (props, ref) => {
-    let {imageAlignment, sectionHeight, backgroundColor, children, ...rest} =
-      props;
+    let {
+      imagePosition,
+      sectionHeight,
+      backgroundColor,
+      maxWidth,
+      paddingTop,
+      paddingBottom,
+      children,
+      ...rest
+    } = props;
     let styleSection: CSSProperties = {
       '--section-height': `${sectionHeight}px`,
       backgroundColor,
+      'max-width': `${maxWidth}px`,
+      paddingTop,
+      paddingBottom,
     } as CSSProperties;
 
     return (
@@ -32,13 +46,13 @@ let ImageWithText = forwardRef<HTMLElement, ImageWithTextProps>(
         ref={ref}
         {...rest}
         style={styleSection}
-        className="h-[var(--section-height)] sm-max:h-auto sm-max:overflow-hidden"
+        className="mx-auto sm-max:h-auto sm-max:overflow-hidden"
       >
-        <div className="h-full px-10 sm-max:px-6 sm-max:w-full">
+        <div className="h-full sm-max:w-full">
           <div
             className={clsx(
               'flex justify-center items-center gap-5 h-full w-full sm-max:flex-col',
-              AlignImageClasses[imageAlignment!],
+              AlignImageClasses[imagePosition!],
             )}
           >
             {children}
@@ -71,31 +85,14 @@ export let schema: HydrogenComponentSchema = {
           },
           defaultValue: 'left',
         },
-        {
-          type: 'toggle-group',
-          label: 'Text Alignment',
-          name: 'textAlignment',
-          configs: {
-            options: [
-              {label: 'Left', value: 'left'},
-              {label: 'Center', value: 'center'},
-              {label: 'Right', value: 'right'},
-            ],
-          },
-          defaultValue: 'center',
-        },
+
         {
           type: 'color',
           name: 'backgroundColor',
           label: 'Background color',
           defaultValue: '#f4f4f4',
         },
-        {
-          type: 'color',
-          name: 'backgroundText',
-          label: 'Background Text',
-          defaultValue: '#f4f4f4',
-        },
+
         {
           type: 'range',
           name: 'maxWidth',
@@ -108,34 +105,35 @@ export let schema: HydrogenComponentSchema = {
             unit: 'px',
           },
         },
+
         {
           type: 'range',
-          name: 'topPadding',
+          name: 'paddingTop',
           label: 'Top padding',
-          defaultValue: 800,
+          defaultValue: 20,
           configs: {
-            min: 400,
-            max: 1800,
-            step: 10,
+            min: 0,
+            max: 100,
+            step: 1,
             unit: 'px',
           },
         },
         {
           type: 'range',
-          name: 'bottomPadding',
+          name: 'paddingBottom',
           label: 'Bottom padding',
-          defaultValue: 800,
+          defaultValue: 20,
           configs: {
-            min: 400,
-            max: 1800,
-            step: 10,
+            min: 0,
+            max: 100,
+            step: 1,
             unit: 'px',
           },
         },
       ],
     },
   ],
-  childTypes: ['content-items', 'image-items'],
+  childTypes: ['image-with-text--content', 'image-with-text--image'],
   presets: {
     children: [
       {
