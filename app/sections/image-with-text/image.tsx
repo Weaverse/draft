@@ -20,14 +20,14 @@ let ImageItems = forwardRef<HTMLDivElement, ImageItemsProps>((props, ref) => {
     <div
       ref={ref}
       {...rest}
-      className="w-1/2 flex flex-1 items-center justify-center sm-max:order-first sm-max:w-full sm-max:py-10 sm-max:pb-0 sm-max:justify-center"
+      className="flex flex-1 items-center justify-center sm-max:order-first sm-max:w-full sm-max:py-10 sm-max:pb-0 sm-max:justify-center"
     >
       {image ? (
         <Image
           data={image}
           loading={loading}
           sizes="auto"
-          className="!w-1/2 !aspect-square sm-max:!w-full"
+          className="!w-full !aspect-square sm-max:!w-full"
         />
       ) : (
         <div className="flex justify-center items-center bg-gray-200 w-1/2 aspect-square">
@@ -45,7 +45,7 @@ export default ImageItems;
 
 export let schema: HydrogenComponentSchema = {
   type: 'image-with-text--image',
-  title: 'Image with text',
+  title: 'Image',
   toolbar: ['general-settings', ['duplicate', 'delete']],
   limit: 1,
   inspector: [
@@ -56,25 +56,6 @@ export let schema: HydrogenComponentSchema = {
           type: 'image',
           name: 'image',
           label: 'Image',
-        },
-        {
-          type: 'toggle-group',
-          name: 'loading',
-          label: 'Image loading',
-          defaultValue: 'eager',
-          configs: {
-            options: [
-              {label: 'Eager', value: 'eager', icon: 'Lightning'},
-              {
-                label: 'Lazy',
-                value: 'lazy',
-                icon: 'SpinnerGap',
-                weight: 'light',
-              },
-            ],
-          },
-          helpText:
-            'Learn more about <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/loading" target="_blank" rel="noopener noreferrer">image loading strategies</a>.',
         },
       ],
     },

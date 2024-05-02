@@ -7,20 +7,37 @@ import {forwardRef} from 'react';
 
 interface ContentItemsProps extends HydrogenComponentProps {
   gap: number;
+  backgroundColor: string;
+  textAlignment: string;
+  paddingTop: number;
+  paddingBottom: number;
+  paddingLeft: number;
+  paddingRight: number;
 }
 
 let ContentItems = forwardRef<HTMLDivElement, ContentItemsProps>(
   (props, ref) => {
-    let {children, gap, ...rest} = props;
+    let {
+      children,
+      textAlignment,
+      paddingBottom,
+      paddingLeft,
+      paddingRight,
+      paddingTop,
+      backgroundColor,
+      ...rest
+    } = props;
     let style = {
-      gap: `${gap}px`,
-      textAlign: 'left',
+      backgroundColor,
+      textAlign: textAlignment,
+      paddingBottom,
+      paddingTop,
     } as CSSProperties;
     return (
       <div
         ref={ref}
         {...rest}
-        className="w-1/2 flex flex-col justify-center gap-5 p-16 sm-max:w-full sm-max:pt-0 sm-max:px-0 sm-max:pb-10"
+        className={`w-1/2 flex flex-col justify-${textAlignment} items-${textAlignment} gap-5 p-16 sm-max:w-full sm-max:pt-0 sm-max:px-0 sm-max:pb-10`}
         style={style}
       >
         {children}
@@ -38,40 +55,76 @@ export let schema: HydrogenComponentSchema = {
   toolbar: ['general-settings', ['duplicate', 'delete']],
   inspector: [
     {
-      group: 'Content',
+      group: 'General',
       inputs: [
         {
+          type: 'toggle-group',
+          label: 'Text Alignment',
+          name: 'textAlignment',
+          configs: {
+            options: [
+              {label: 'Left', value: 'left'},
+              {label: 'Center', value: 'center'},
+              {label: 'Right', value: 'right'},
+            ],
+          },
+          defaultValue: 'center',
+        },
+        {
+          type: 'color',
+          name: 'backgroundColor',
+          label: 'Background Text',
+          defaultValue: '#f4f4f4',
+        },
+        {
           type: 'range',
-          name: 'gap',
-          label: 'Items gap',
+          name: 'paddingTop',
+          label: 'Top padding',
+          defaultValue: 20,
           configs: {
             min: 0,
-            max: 40,
-            step: 4,
+            max: 100,
+            step: 1,
             unit: 'px',
           },
+        },
+        {
+          type: 'range',
+          name: 'paddingBottom',
+          label: 'Bottom padding',
           defaultValue: 20,
+          configs: {
+            min: 0,
+            max: 100,
+            step: 1,
+            unit: 'px',
+          },
         },
       ],
     },
   ],
-  childTypes: ['subheading', 'heading', 'description', 'button'],
+  childTypes: [
+    'image-with-text-subheading',
+    'image-with-text-heading',
+    'image-with-text-description',
+    'image-with-text-button',
+  ],
   presets: {
     children: [
       {
-        type: 'subheading',
+        type: 'image-with-text-subheading',
         content: 'Subheading',
       },
       {
-        type: 'heading',
+        type: 'image-with-text-heading',
         content: 'Heading for image',
       },
       {
-        type: 'description',
+        type: 'image-with-text-description',
         content: 'Pair large text with an image to tell a story.',
       },
       {
-        type: 'button',
+        type: 'image-with-text-button',
         content: 'Button section',
       },
     ],
