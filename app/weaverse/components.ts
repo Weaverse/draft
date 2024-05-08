@@ -56,6 +56,7 @@ import * as ImageWithTextDescription from '~/sections/image-with-text/Descriptio
 import * as ImageWithTextHeading from '~/sections/image-with-text/Heading';
 import * as ImageWithTextSubheading from '~/sections/image-with-text/SubHeading';
 import * as NotFound from '~/sections/404-page';
+import * as ContactUs from '~/sections/contact-us';
 
 export let components: HydrogenComponent[] = [
   ...commonComponents,
@@ -117,4 +118,5 @@ export let components: HydrogenComponent[] = [
   ImageWithTextHeading,
   ImageWithTextSubheading,
   NotFound,
+  ContactUs,
 ];

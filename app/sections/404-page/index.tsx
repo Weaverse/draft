@@ -1,14 +1,13 @@
+import {Link} from '@remix-run/react';
+import {Image} from '@shopify/hydrogen';
 import type {
   ComponentLoaderArgs,
   HydrogenComponentProps,
   HydrogenComponentSchema,
   WeaverseImage,
 } from '@weaverse/hydrogen';
-import {forwardRef} from 'react';
-import clsx from 'clsx';
-import {Image} from '@shopify/hydrogen';
 import type {CSSProperties} from 'react';
-import {Link} from '@remix-run/react';
+import {forwardRef} from 'react';
 
 type NotFoundData = {
   paddingTop: number;
