@@ -59,7 +59,8 @@ import * as NotFound from '~/sections/404-page';
 import * as ContactUs from '~/sections/contact-us';
 import * as TermsPolicy from '~/sections/terms-policy';
 import * as TermsPolicyItem from '~/sections/terms-policy/items';
-
+import * as IconList from '~/sections/icon-list';
+import * as IconListTitle from '~/sections/icon-list/icon-list-title';
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -123,4 +124,6 @@ export let components: HydrogenComponent[] = [
   ContactUs,
   TermsPolicy,
   TermsPolicyItem,
+  IconList,
+  IconListTitle,
 ];
