@@ -61,6 +61,9 @@ import * as TermsPolicy from '~/sections/terms-policy';
 import * as TermsPolicyItem from '~/sections/terms-policy/items';
 import * as IconList from '~/sections/icon-list';
 import * as IconListTitle from '~/sections/icon-list/icon-list-title';
+import * as IconListContainer from '~/sections/icon-list/icon-list-container';
+import * as IconListIcon from '~/sections/icon-list/icon-list-icon';
+
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -126,4 +129,6 @@ export let components: HydrogenComponent[] = [
   TermsPolicyItem,
   IconList,
   IconListTitle,
+  IconListContainer,
+  IconListIcon,
 ];

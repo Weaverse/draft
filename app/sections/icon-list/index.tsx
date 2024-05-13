@@ -51,7 +51,7 @@ export let loader = async (args: ComponentLoaderArgs<IconListData>) => {
 export let schema: HydrogenComponentSchema = {
   type: 'icon-list',
   title: 'Icon List',
-  childTypes: ['icon-list-title', 'icon-list-item'],
+  childTypes: ['icon-list-title', 'icon-list-container'],
   inspector: [
     {
       group: 'General',
