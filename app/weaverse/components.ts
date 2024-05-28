@@ -63,7 +63,8 @@ import * as IconList from '~/sections/icon-list';
 import * as IconListTitle from '~/sections/icon-list/icon-list-title';
 import * as IconListContainer from '~/sections/icon-list/icon-list-container';
 import * as IconListIcon from '~/sections/icon-list/icon-list-icon';
-
+import * as VideoBanner from '~/sections/video-banner/index';
+import * as VideoBannerItem from '~/sections/video-banner/items';
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -131,4 +132,6 @@ export let components: HydrogenComponent[] = [
   IconListTitle,
   IconListContainer,
   IconListIcon,
+  VideoBanner,
+  VideoBannerItem,
 ];
