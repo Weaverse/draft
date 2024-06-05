@@ -5,26 +5,30 @@ import type {
 } from '@weaverse/hydrogen';
 import type {CSSProperties} from 'react';
 import {forwardRef} from 'react';
-
-type RichTextData = {
+import clsx from 'clsx';
+type LogoListData = {
   paddingTop: number;
   paddingBottom: number;
   backgroundColor: string;
   textPosition: string;
+  maxWidth: string;
+  enableMaxWidth: boolean;
   // More type definitions...
 };
 
-type RichTextProps = HydrogenComponentProps<
+type LogoListProps = HydrogenComponentProps<
   Awaited<ReturnType<typeof loader>>
 > &
-  RichTextData;
+  LogoListData;
 
-let RichText = forwardRef<HTMLElement, RichTextProps>((props, ref) => {
+let LogoList = forwardRef<HTMLElement, LogoListProps>((props, ref) => {
   let {
     paddingTop,
     backgroundColor,
     textPosition,
     paddingBottom,
+    maxWidth,
+    enableMaxWidth,
     children,
     ...rest
   } = props;
@@ -33,10 +37,10 @@ let RichText = forwardRef<HTMLElement, RichTextProps>((props, ref) => {
     paddingTop,
     paddingBottom,
     backgroundColor,
-    alignItems: textPosition,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: textPosition,
+    maxWidth: enableMaxWidth ? maxWidth : 'none',
+    margin: '0 auto',
   } as CSSProperties;
   return (
     <section ref={ref} {...rest} style={styleSection}>
@@ -45,32 +49,19 @@ let RichText = forwardRef<HTMLElement, RichTextProps>((props, ref) => {
   );
 });
 
-export let loader = async (args: ComponentLoaderArgs<RichTextData>) => {
+export let loader = async (args: ComponentLoaderArgs<LogoListData>) => {
   // Data fetching logic, the code will be run on the server-side ...
 };
 
 export let schema: HydrogenComponentSchema = {
-  type: 'rich-text',
-  title: 'Rich Text',
+  type: 'logo-list',
+  title: 'Logo List',
   // More schema definitions...
-  childTypes: ['heading', 'paragraph'],
+  childTypes: ['heading', 'logo-list-container'],
   inspector: [
     {
-      group: 'Rich Text',
+      group: 'Icon list',
       inputs: [
-        {
-          type: 'toggle-group',
-          label: 'Text position',
-          name: 'textPosition',
-          configs: {
-            options: [
-              {label: 'Left', value: 'flex-start'},
-              {label: 'Center', value: 'center'},
-              {label: 'Right', value: 'flex-end'},
-            ],
-          },
-          defaultValue: 'center',
-        },
         {
           type: 'range',
           label: 'Padding Top',
@@ -101,6 +92,25 @@ export let schema: HydrogenComponentSchema = {
           label: 'Background color',
           defaultValue: '#ffffff',
         },
+        {
+          type: 'switch',
+          label: 'Enable maximum width limit',
+          name: 'enableMaxWidth',
+          defaultValue: false,
+        },
+        {
+          type: 'range',
+          label: 'Max Width',
+          name: 'maxWidth',
+          defaultValue: 400,
+          condition: 'enableMaxWidth.eq.true',
+          configs: {
+            min: 200,
+            max: 1000,
+            step: 10,
+            unit: 'px',
+          },
+        },
       ],
     },
   ],
@@ -108,15 +118,10 @@ export let schema: HydrogenComponentSchema = {
     children: [
       {
         type: 'heading',
-        content: 'Talk about your brand',
-      },
-      {
-        type: 'description',
-        content:
-          'Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.',
+        content: 'Featured on',
       },
     ],
   },
 };
 
-export default RichText;
+export default LogoList;

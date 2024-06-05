@@ -66,6 +66,9 @@ import * as IconListIcon from '~/sections/icon-list/icon-list-icon';
 import * as VideoBanner from '~/sections/video-banner/index';
 import * as VideoBannerItem from '~/sections/video-banner/items';
 import * as RichText from '~/sections/rich-text';
+import * as LogoList from '~/sections/logo-list';
+import * as LogoListContainer from '~/sections/logo-list/logo-list-container';
+import * as LogoListItem from '~/sections/logo-list/logo-list-item';
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -136,4 +139,7 @@ export let components: HydrogenComponent[] = [
   VideoBanner,
   VideoBannerItem,
   RichText,
+  LogoList,
+  LogoListContainer,
+  LogoListItem,
 ];
