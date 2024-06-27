@@ -3,7 +3,7 @@ import {
   getPaginationVariables,
   getSeoMeta,
   Pagination,
-  UNSTABLE_Analytics as Analytics,
+  Analytics,
 } from '@shopify/hydrogen';
 import {defer, type LoaderFunctionArgs, MetaArgs} from '@shopify/remix-oxygen';
 import {Suspense} from 'react';

@@ -7,8 +7,7 @@ import {
 } from '@shopify/remix-oxygen';
 import {
   CartForm,
-  type CartQueryDataReturn,
-  UNSTABLE_Analytics as Analytics,
+  type CartQueryDataReturn,Analytics,
 } from '@shopify/hydrogen';
 
 import {isLocalPath} from '~/lib/utils';
