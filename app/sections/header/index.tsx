@@ -213,13 +213,6 @@ export let schema: HydrogenComponentSchema = {
           name: 'showCartIcon',
           defaultValue: true,
         },
-
-        {
-          type: 'switch',
-          label: 'Show Search Icon',
-          name: 'showSearchIcon',
-          defaultValue: true,
-        },
       ],
     },
     {

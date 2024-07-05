@@ -54,7 +54,6 @@ export function FeaturedProducts({
   useEffect(() => {
     load(productsApiPath);
   }, [load, productsApiPath]);
-
   return (
     <>
       <Heading format size="copy" className="t-4">

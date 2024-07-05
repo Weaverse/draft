@@ -1,46 +1,60 @@
-import type {HydrogenComponentSchema} from '@weaverse/hydrogen';
+import type {
+  ComponentLoaderArgs,
+  HydrogenComponentProps,
+  HydrogenComponentSchema,
+} from '@weaverse/hydrogen';
+import {forwardRef, lazy, Suspense} from 'react';
 import clsx from 'clsx';
 import type {CSSProperties} from 'react';
-import {forwardRef, lazy, Suspense} from 'react';
 
-import {overlayInputs} from '~/sections/shared/Overlay';
 import {gapClasses} from '~/sections/shared/Section';
-
-type VideoHeroProps = {
-  videoURL: string;
+import {overlayInputs} from '~/sections/shared/Overlay';
+type VideoBannerData = {
+  videoLink: string;
   gap: number;
+  sectionHeightDesktop: string;
+  sectionHeightMobile: string;
   enableOverlay: boolean;
   overlayColor: string;
   overlayOpacity: number;
-  sectionHeightDesktop: number;
-  sectionHeightMobile: number;
-  children: React.ReactNode;
+  enableAutoPlay: boolean;
+  enableLoop: boolean;
+  enableMuted: boolean;
+  // More type definitions...
 };
+let FALLBACK_VIDEO = 'https://www.youtube.com/watch?v=Su-x4Mo5xmU';
+type VideoBannerProps = HydrogenComponentProps<
+  Awaited<ReturnType<typeof loader>>
+> &
+  VideoBannerData;
+
 let RP = lazy(() => import('react-player/lazy'));
 let ReactPlayer = (props: any) => (
   <Suspense fallback={null}>
     <RP {...props} />
   </Suspense>
 );
-let FALLBACK_VIDEO = 'https://www.youtube.com/watch?v=Su-x4Mo5xmU';
 
-let VideoHero = forwardRef<HTMLElement, VideoHeroProps>((props, ref) => {
+let VideoBanner = forwardRef<HTMLElement, VideoBannerProps>((props, ref) => {
   let {
-    videoURL,
-    gap,
-    sectionHeightDesktop,
+    videoLink,
     sectionHeightMobile,
-    children,
+    sectionHeightDesktop,
     enableOverlay,
     overlayColor,
     overlayOpacity,
+    enableAutoPlay,
+    enableLoop,
+    enableMuted,
+    gap,
+    children,
     ...rest
   } = props;
+  // More component logic...
   let sectionStyle: CSSProperties = {
     '--desktop-height': `${sectionHeightDesktop}px`,
     '--mobile-height': `${sectionHeightMobile}px`,
   } as CSSProperties;
-
   return (
     <section
       ref={ref}
@@ -57,10 +71,11 @@ let VideoHero = forwardRef<HTMLElement, VideoHeroProps>((props, ref) => {
         )}
       >
         <ReactPlayer
-          url={videoURL || FALLBACK_VIDEO}
+          url={videoLink || FALLBACK_VIDEO}
           playing
-          muted
-          loop
+          autoPlay={enableAutoPlay}
+          muted={enableMuted}
+          loop={enableLoop}
           width="100%"
           height="auto"
           controls={false}
@@ -88,24 +103,27 @@ let VideoHero = forwardRef<HTMLElement, VideoHeroProps>((props, ref) => {
   );
 });
 
-export default VideoHero;
+export let loader = async (args: ComponentLoaderArgs<VideoBannerData>) => {
+  // Data fetching logic, the code will be run on the server-side ...
+};
 
 export let schema: HydrogenComponentSchema = {
-  type: 'video-hero',
-  title: 'Video hero',
-  toolbar: ['general-settings', ['duplicate', 'delete']],
+  type: 'video-banner',
+  title: 'Video Banner',
+  // More schema definitions...
+  childTypes: ['subheading', 'heading', 'description'],
   inspector: [
     {
-      group: 'Video hero',
+      group: 'Video',
       inputs: [
         {
           type: 'text',
-          name: 'videoURL',
-          label: 'Video URL',
-          defaultValue: 'https://www.youtube.com/watch?v=Su-x4Mo5xmU',
-          placeholder: 'https://www.youtube.com/watch?v=Su-x4Mo5xmU',
+          label: 'Video Link',
+          name: 'videoLink',
+          placeholder: 'https://',
           helpText: 'Support YouTube, Vimeo, MP4, WebM, and HLS streams.',
         },
+        ...overlayInputs,
         {
           type: 'heading',
           label: 'Layout',
@@ -113,7 +131,7 @@ export let schema: HydrogenComponentSchema = {
         {
           type: 'range',
           name: 'sectionHeightDesktop',
-          label: 'Desktop section height',
+          label: 'Height on desktop',
           defaultValue: 650,
           configs: {
             min: 400,
@@ -125,7 +143,7 @@ export let schema: HydrogenComponentSchema = {
         {
           type: 'range',
           name: 'sectionHeightMobile',
-          label: 'Mobile section height',
+          label: 'Height on mobile',
           defaultValue: 300,
           configs: {
             min: 250,
@@ -146,27 +164,37 @@ export let schema: HydrogenComponentSchema = {
           },
           defaultValue: 20,
         },
-        ...overlayInputs,
+        {
+          type: 'switch',
+          name: 'enableAutoPlay',
+          label: 'Autoplay',
+        },
+        {
+          type: 'switch',
+          name: 'enableLoop',
+          label: 'Loop',
+        },
+        {
+          type: 'switch',
+          name: 'enableMuted',
+          label: 'Muted',
+        },
       ],
     },
   ],
-  childTypes: ['subheading', 'heading', 'description', 'button'],
   presets: {
     enableOverlay: true,
+    enableAutoPlay: true,
+    enableLoop: true,
     children: [
       {
-        type: 'subheading',
-        content: 'Seamless hero videos',
-      },
-      {
         type: 'heading',
-        content: 'Bring your brand to life.',
       },
       {
-        type: 'description',
-        content:
-          'Pair large video with a compelling message to captivate your audience.',
+        type: 'subheading',
       },
     ],
   },
 };
+
+export default VideoBanner;

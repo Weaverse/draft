@@ -55,7 +55,20 @@ import * as ImgWithTextButton from '~/sections/image-with-text/Button';
 import * as ImageWithTextDescription from '~/sections/image-with-text/Description';
 import * as ImageWithTextHeading from '~/sections/image-with-text/Heading';
 import * as ImageWithTextSubheading from '~/sections/image-with-text/SubHeading';
-
+import * as NotFound from '~/sections/404-page';
+import * as ContactUs from '~/sections/contact-us';
+import * as TermsPolicy from '~/sections/terms-policy';
+import * as TermsPolicyItem from '~/sections/terms-policy/items';
+import * as IconList from '~/sections/icon-list';
+import * as IconListTitle from '~/sections/icon-list/icon-list-title';
+import * as IconListContainer from '~/sections/icon-list/icon-list-container';
+import * as IconListIcon from '~/sections/icon-list/icon-list-icon';
+import * as VideoBanner from '~/sections/video-banner/index';
+import * as VideoBannerItem from '~/sections/video-banner/items';
+import * as RichText from '~/sections/rich-text';
+import * as LogoList from '~/sections/logo-list';
+import * as LogoListContainer from '~/sections/logo-list/logo-list-container';
+import * as LogoListItem from '~/sections/logo-list/logo-list-item';
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -115,4 +128,18 @@ export let components: HydrogenComponent[] = [
   ImageWithTextDescription,
   ImageWithTextHeading,
   ImageWithTextSubheading,
+  NotFound,
+  ContactUs,
+  TermsPolicy,
+  TermsPolicyItem,
+  IconList,
+  IconListTitle,
+  IconListContainer,
+  IconListIcon,
+  VideoBanner,
+  VideoBannerItem,
+  RichText,
+  LogoList,
+  LogoListContainer,
+  LogoListItem,
 ];

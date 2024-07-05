@@ -1,8 +1,8 @@
 {
-  "name": "@weaverse/pilot",
+  "name": "@weaverse/draft",
   "private": true,
   "sideEffects": false,
-  "version": "2.6.3",
+  "version": "1.0.0",
   "type": "module",
   "author": "Weaverse",
   "scripts": {
