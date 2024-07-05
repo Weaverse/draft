@@ -323,7 +323,11 @@ function CartCount({
   const rootData = useRootLoaderData();
 
   return (
-    <Suspense fallback={<Badge count={0} dark={isHome} openCart={openCart} />}>
+    <Suspense
+      fallback={
+        <Badge count={0} dark={isHome} openCart={openCart} cart={null} />
+      }
+    >
       <Await resolve={rootData?.cart}>
         {(cart) => (
           <Badge
