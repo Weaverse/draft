@@ -22,7 +22,7 @@ import type {SeoConfig} from '@shopify/hydrogen';
 import {
   getSeoMeta,
   getShopAnalytics,
-  UNSTABLE_Analytics as Analytics,
+  Analytics,
   useNonce,
 } from '@shopify/hydrogen';
 import {CustomAnalytics} from '~/components/CustomAnalytics';
