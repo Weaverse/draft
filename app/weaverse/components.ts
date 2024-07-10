@@ -69,6 +69,11 @@ import * as RichText from '~/sections/rich-text';
 import * as LogoList from '~/sections/logo-list';
 import * as LogoListContainer from '~/sections/logo-list/logo-list-container';
 import * as LogoListItem from '~/sections/logo-list/logo-list-item';
+import * as Image from '~/sections/image';
+import * as ImageHeading from '~/sections/image/image-heading';
+import * as ImageSubheading from '~/sections/image/image-subheading';
+import * as ImageDescription from '~/sections/image/image-description';
+import * as ImageButton from '~/sections/image/image-button';
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -142,4 +147,9 @@ export let components: HydrogenComponent[] = [
   LogoList,
   LogoListContainer,
   LogoListItem,
+  Image,
+  ImageHeading,
+  ImageSubheading,
+  ImageDescription,
+  ImageButton,
 ];
