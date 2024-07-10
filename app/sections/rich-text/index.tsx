@@ -59,11 +59,27 @@ let RichText = forwardRef<HTMLElement, RichTextProps>((props, ref) => {
     justifyContent: contentAlignment,
   } as CSSProperties;
 
+  let textAlign;
+
+  switch (contentAlignment) {
+    case 'flex-start':
+      textAlign = 'text-left';
+      break;
+    case 'center':
+      textAlign = 'text-center';
+      break;
+    case 'flex-end':
+      textAlign = 'text-right';
+      break;
+    default:
+      textAlign = 'text-left';
+  }
+
   return (
     <section ref={ref} {...rest} style={styleSection}>
       <h1 className="text-3xl font-bold mb-4">{heading}</h1>
       <div className=" block mb-6">
-        <p className="text-lg">{text}</p>
+        <p className={`text-lg ${textAlign}`}>{text}</p>
       </div>
       <a
         style={{backgroundColor: buttonColor, color: textColor}}
