@@ -9,23 +9,29 @@ import type {CSSProperties} from 'react';
 import {Link} from '~/components';
 
 export interface ButtonProps {
-  text: string;
-  link: string;
+  button1Text: string;
+  link1: string;
+  button2Text: string;
+  link2: string;
   openInNewTab: boolean;
   backgroundColor: string;
   width: number;
   height: number;
   borderRadius: number;
+  blockWidth: number;
 }
 
 interface Props extends ButtonProps, Partial<HydrogenComponentProps> {}
 
 let Button = forwardRef<HTMLElement, Props>((props, ref) => {
   let {
-    text,
-    link,
+    button1Text,
+    link1,
     width,
     height,
+    button2Text,
+    link2,
+    blockWidth,
     borderRadius,
     backgroundColor,
     openInNewTab,
@@ -38,17 +44,33 @@ let Button = forwardRef<HTMLElement, Props>((props, ref) => {
     borderRadius,
   } as CSSProperties;
   return (
-    <Link
-      ref={ref as React.ForwardedRef<HTMLAnchorElement>}
-      {...rest}
-      to={link || '/'}
-      target={openInNewTab ? '_blank' : '_self'}
-      rel="noreferrer"
-      style={styleSection}
-      className="text-white font-bold py-2 px-4  flex items-center justify-center "
+    <div
+      style={{width: blockWidth}}
+      className="flex flex-row items-center justify-between"
     >
-      {text}
-    </Link>
+      <Link
+        ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+        {...rest}
+        to={link1 || '/'}
+        target={openInNewTab ? '_blank' : '_self'}
+        rel="noreferrer"
+        style={styleSection}
+        className="text-white font-bold py-2 px-4 flex  items-center justify-center"
+      >
+        {button1Text}
+      </Link>
+      <Link
+        ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+        {...rest}
+        to={link2 || '/'}
+        target={openInNewTab ? '_blank' : '_self'}
+        rel="noreferrer"
+        style={styleSection}
+        className="text-white font-bold py-2 px-4 flex items-center justify-center"
+      >
+        {button2Text}
+      </Link>
+    </div>
   );
 });
 
@@ -56,16 +78,42 @@ export default Button;
 
 export let buttonInputs: InspectorGroup['inputs'] = [
   {
+    type: 'range',
+    name: 'blockWidth',
+    label: 'Block width',
+    defaultValue: 400,
+    configs: {
+      min: 90,
+      max: 500,
+      step: 1,
+      unit: 'px',
+    },
+  },
+  {
     type: 'text',
-    name: 'text',
-    label: 'Text content',
-    defaultValue: 'Shop now',
-    placeholder: 'Shop now',
+    name: 'button1Text',
+    label: 'Button #1 label',
+    defaultValue: 'Button #1',
+    placeholder: 'Button #1',
+  },
+  {
+    type: 'text',
+    name: 'button2Text',
+    label: 'Button #2 label',
+    defaultValue: 'Button #2',
+    placeholder: 'Button #2',
   },
   {
     type: 'url',
-    name: 'link',
-    label: 'Link to',
+    name: 'link1',
+    label: 'Button #1 link',
+    defaultValue: '/products',
+    placeholder: '/products',
+  },
+  {
+    type: 'url',
+    name: 'link2',
+    label: 'Button #2 link',
     defaultValue: '/products',
     placeholder: '/products',
   },
@@ -74,7 +122,6 @@ export let buttonInputs: InspectorGroup['inputs'] = [
     name: 'openInNewTab',
     label: 'Open in new tab',
     defaultValue: false,
-    condition: 'buttonLink.ne.nil',
   },
   {
     type: 'range',
