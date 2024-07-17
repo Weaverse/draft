@@ -1,13 +1,15 @@
-import { Image } from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
 import {
   type HydrogenComponentProps,
   type HydrogenComponentSchema,
   type WeaverseImage,
 } from '@weaverse/hydrogen';
 import clsx from 'clsx';
-import { forwardRef } from 'react';
-import { FALLBACK_IMAGE } from '~/lib/const';
-import Button, { ButtonProps, buttonInputs } from '../shared/Button';
+import {forwardRef} from 'react';
+
+import {FALLBACK_IMAGE} from '~/lib/const';
+
+import Button, {ButtonProps, buttonInputs} from '../shared/Button';
 
 interface ColumnWithImageItemProps extends ButtonProps, HydrogenComponentProps {
   imageSrc: WeaverseImage;
@@ -40,7 +42,7 @@ let ColumnWithImageItem = forwardRef<HTMLDivElement, ColumnWithImageItemProps>(
     let imageData =
       typeof imageSrc === 'object'
         ? imageSrc
-        : { url: imageSrc || FALLBACK_IMAGE, altText: imageSrc };
+        : {url: imageSrc || FALLBACK_IMAGE, altText: imageSrc};
     return (
       <div
         ref={ref}
@@ -55,7 +57,14 @@ let ColumnWithImageItem = forwardRef<HTMLDivElement, ColumnWithImageItemProps>(
         <div className="text-center w-full space-y-3 mt-6">
           {heading && <h3 className="font-medium">{heading}</h3>}
           {content && <p>{content}</p>}
-          {text && <Button variant={variant} text={text} link={link} openInNewTab={openInNewTab} />}
+          {text && (
+            <Button
+              variant={variant}
+              text={text}
+              link={link}
+              openInNewTab={openInNewTab}
+            />
+          )}
         </div>
       </div>
     );
@@ -65,8 +74,8 @@ let ColumnWithImageItem = forwardRef<HTMLDivElement, ColumnWithImageItemProps>(
 export default ColumnWithImageItem;
 
 export let schema: HydrogenComponentSchema = {
-  type: 'column-with-image--item',
-  title: 'Column',
+  type: 'content-column',
+  title: 'Content columns',
   toolbar: ['general-settings', ['duplicate', 'delete']],
   inspector: [
     {
@@ -121,7 +130,7 @@ export let schema: HydrogenComponentSchema = {
           type: 'heading',
           label: 'Button (optional)',
         },
-        ...buttonInputs
+        ...buttonInputs,
       ],
     },
   ],
