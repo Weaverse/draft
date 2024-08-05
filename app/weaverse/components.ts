@@ -74,6 +74,9 @@ import * as ImageButton from '~/sections/image/image-button';
 import * as ColumnsWithImages from '~/sections/content-columns';
 import * as ColumnsWithImagesItems from '~/sections/content-columns/items';
 import * as ColumnWithImageItem from '~/sections/content-columns/column-with-image-item';
+import * as BeforeAfter from '~/sections/before-after';
+import * as BeforeAfterHeading from '~/sections/before-after/heading';
+import * as BeforeAfterSlider from '~/sections/before-after/slider';
 export let components: HydrogenComponent[] = [
   ...commonComponents,
   AllProducts,
@@ -152,4 +155,7 @@ export let components: HydrogenComponent[] = [
   ImageSubheading,
   ImageDescription,
   ImageButton,
+  BeforeAfter,
+  BeforeAfterHeading,
+  BeforeAfterSlider,
 ];
