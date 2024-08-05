@@ -5,7 +5,7 @@ import type {
 } from '@weaverse/hydrogen';
 import type {CSSProperties} from 'react';
 import {forwardRef} from 'react';
-
+import clsx from 'clsx';
 type RichTextData = {
   backgroundColor: string;
   textColor: string;
@@ -15,7 +15,6 @@ type RichTextData = {
   sectionHeight: string;
   buttonLabel: string;
   buttonLink: string;
-  buttonColor: string;
   openNewTab: boolean;
   buttonStyle: string;
   paddingTop: number;
@@ -38,7 +37,6 @@ let RichText = forwardRef<HTMLElement, RichTextProps>((props, ref) => {
     sectionHeight,
     buttonLabel,
     buttonLink,
-    buttonColor,
     openNewTab,
     buttonStyle,
     paddingTop,
@@ -82,11 +80,13 @@ let RichText = forwardRef<HTMLElement, RichTextProps>((props, ref) => {
         <p className={`text-lg ${textAlign}`}>{text}</p>
       </div>
       <a
-        style={{backgroundColor: buttonColor, color: textColor}}
         href={buttonLink}
         target={openNewTab ? '_blank' : '_self'}
         rel={openNewTab ? 'noopener noreferrer' : undefined}
-        className="inline-bloc py-2 px-4 rounded "
+        className={clsx(
+          'flex cursor-pointer py-2 px-4 rounded sm-max:px-3',
+          buttonStyle,
+        )}
       >
         {buttonLabel}
       </a>
@@ -171,12 +171,7 @@ export let schema: HydrogenComponentSchema = {
           name: 'buttonLink',
           defaultValue: 'https://',
         },
-        {
-          type: 'color',
-          name: 'buttonColor',
-          label: 'Button color',
-          defaultValue: '#ffffff',
-        },
+
         {
           type: 'switch',
           label: 'Open in new tab',
@@ -189,12 +184,25 @@ export let schema: HydrogenComponentSchema = {
           name: 'buttonStyle',
           configs: {
             options: [
-              {label: '1', value: '1'},
-              {label: '2', value: '2'},
-              {label: '3', value: '3'},
+              {
+                label: '1',
+                value:
+                  'transition hover:bg-white border-2 border-solid hover:border-gray-900 hover:text-black bg-black text-white',
+              },
+              {
+                label: '2',
+                value:
+                  'transition bg-white border-2 border-solid border-gray-900 text-black hover:bg-black hover:text-white',
+              },
+              {
+                label: '3',
+                value:
+                  'transition hover:bg-white border-2 border-solid border-white hover:text-black bg-gray-200 text-white',
+              },
             ],
           },
-          defaultValue: '1',
+          defaultValue:
+            'transition hover:bg-white border-2 border-solid hover:border-gray-900 hover:text-black bg-black text-white',
         },
         {
           type: 'range',

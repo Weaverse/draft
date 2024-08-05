@@ -11,7 +11,7 @@ import {FALLBACK_IMAGE} from '~/lib/const';
 import type {Alignment} from '~/lib/type';
 import {Link} from '~/components';
 
-import Button, {ButtonProps, buttonInputs} from '../shared/Button';
+import {ButtonProps} from '../shared/Button';
 interface ColumnWithImageItemProps extends ButtonProps, HydrogenComponentProps {
   imageSrc: WeaverseImage;
   heading: string;
@@ -19,6 +19,7 @@ interface ColumnWithImageItemProps extends ButtonProps, HydrogenComponentProps {
   buttonText: string;
   linkButton: string;
   hideOnMobile: boolean;
+  buttonStyle: string;
   enableLazyLoad: boolean;
   size: 'large' | 'medium';
   alignment?: Alignment;
@@ -45,6 +46,7 @@ let ColumnWithImageItem = forwardRef<HTMLDivElement, ColumnWithImageItemProps>(
       openInNewTab,
       enableLazyLoad,
       alignment,
+      buttonStyle,
       size,
       buttonText,
       linkButton,
@@ -77,7 +79,10 @@ let ColumnWithImageItem = forwardRef<HTMLDivElement, ColumnWithImageItemProps>(
             to={link || '/'}
             target={openInNewTab ? '_blank' : '_self'}
             rel="noreferrer"
-            className="text-white bg-black font-bold py-2 px-4 flex  items-center justify-center"
+            className={clsx(
+              'flex cursor-pointer justify-center py-2 px-4 rounded sm-max:px-3',
+              buttonStyle,
+            )}
           >
             {buttonText}
           </Link>
@@ -168,6 +173,32 @@ export let schema: HydrogenComponentSchema = {
           label: 'Button link',
           defaultValue: '/products',
           placeholder: 'https://',
+        },
+        {
+          type: 'toggle-group',
+          label: 'Button style',
+          name: 'buttonStyle',
+          configs: {
+            options: [
+              {
+                label: '1',
+                value:
+                  'transition center hover:bg-white border-2 border-solid hover:border-gray-900 hover:text-black bg-black text-white',
+              },
+              {
+                label: '2',
+                value:
+                  'transition bg-white border-2 border-solid border-gray-900 text-black hover:bg-black hover:text-white',
+              },
+              {
+                label: '3',
+                value:
+                  'transition hover:bg-white border-2 border-solid border-white hover:text-black bg-gray-200 text-white',
+              },
+            ],
+          },
+          defaultValue:
+            'transition hover:bg-white border-2 border-solid hover:border-gray-900 hover:text-black bg-black text-white',
         },
         {
           type: 'switch',
