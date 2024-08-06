@@ -4,11 +4,13 @@ import type {
   HydrogenComponentSchema,
 } from '@weaverse/hydrogen';
 import {forwardRef} from 'react';
+import type {CSSProperties} from 'react';
 import clsx from 'clsx';
 type BeforeAfterData = {
   bgColor: string;
-  announceHeight: number;
-  enableAnimation: boolean;
+  sectionHeight: number;
+  topPadding: number;
+  bottomPadding: number;
   // More type definitions...
 };
 
@@ -18,11 +20,18 @@ type BeforeAfterProps = HydrogenComponentProps<
   BeforeAfterData;
 
 let BeforeAfter = forwardRef<HTMLElement, BeforeAfterProps>((props, ref) => {
-  let {bgColor, announceHeight, enableAnimation, children, ...rest} = props;
+  let {bgColor, sectionHeight, topPadding, bottomPadding, children, ...rest} =
+    props;
   // More component logic...
+  let sectionStyle: CSSProperties = {
+    height: `${sectionHeight}px`,
+    backgroundColor: bgColor,
+    paddingTop: `${topPadding}px`,
+    paddingBottom: `${bottomPadding}px`,
+  } as CSSProperties;
 
   return (
-    <section ref={ref} {...rest}>
+    <section style={sectionStyle} ref={ref} {...rest}>
       {children}
     </section>
   );
@@ -36,23 +45,11 @@ export let schema: HydrogenComponentSchema = {
   type: 'before-after-type',
   title: 'Before After Slider',
   // More schema definitions...
-  childTypes: ['before-after-heading-type', 'before-after-slider-type'],
+  childTypes: ['heading', 'before-after-slider-type'],
   inspector: [
     {
       group: 'General',
       inputs: [
-        {
-          type: 'range',
-          label: 'Height',
-          name: 'announceHeight',
-          defaultValue: 40,
-          configs: {
-            min: 40,
-            max: 300,
-            step: 1,
-            unit: 'px',
-          },
-        },
         {
           type: 'color',
           label: 'Background color',
@@ -60,24 +57,44 @@ export let schema: HydrogenComponentSchema = {
           defaultValue: '#F08D27',
         },
         {
-          type: 'switch',
-          label: 'Enable Animation',
-          name: 'enableAnimation',
-          defaultValue: false,
+          type: 'range',
+          label: 'Section Height',
+          name: 'sectionHeight',
+          defaultValue: 400,
+          configs: {
+            min: 200,
+            max: 800,
+            step: 1,
+            unit: 'px',
+          },
+        },
+        {
+          type: 'range',
+          label: 'Top padding',
+          name: 'topPadding',
+          defaultValue: 10,
+          configs: {
+            min: 10,
+            max: 200,
+            step: 1,
+            unit: 'px',
+          },
+        },
+        {
+          type: 'range',
+          label: 'Bottom padding',
+          name: 'bottomPadding',
+          defaultValue: 10,
+          configs: {
+            min: 10,
+            max: 200,
+            step: 1,
+            unit: 'px',
+          },
         },
       ],
     },
   ],
-  presets: {
-    children: [
-      {
-        type: 'before-after-heading-type',
-      },
-      {
-        type: 'before-after-slider-type',
-      },
-    ],
-  },
 };
 
 export default BeforeAfter;
